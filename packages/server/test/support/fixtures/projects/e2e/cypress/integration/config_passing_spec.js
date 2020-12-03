@@ -1,15 +1,4 @@
-/* eslint-disable
-    brace-style,
-    no-fallthrough,
-    no-undef,
-*/
-// TODO: This file was created by bulk-decaffeinate.
-// Fix any style issues and re-enable lint.
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
+/* eslint-disable no-undef */
 describe('Cypress static methods + props', () => {
   it('.version', () => {
     expect(Cypress.version).to.be.a('string')
@@ -36,13 +25,12 @@ describe('Cypress static methods + props', () => {
     expect(browser.majorVersion).to.be.a('number')
     expect(browser.path).to.be.a('string')
 
-    switch (browser.isHeadless) {
-      case true:
-        expect(browser.isHeaded).to.be.false
-      case false:
-        expect(browser.isHeaded).to.be.true
-      default:
-        expect(browser.isHeadless, 'browser.isHeadless').not.to.be.undefined
+    if (browser.isHeadless === true) {
+      expect(browser.isHeaded).to.be.false
+    } else if (browser.isHeadless === false) {
+      expect(browser.isHeaded).to.be.true
+    } else {
+      expect(browser.isHeadless, 'browser.isHeadless').not.to.be.undefined
     }
   })
 
@@ -50,14 +38,14 @@ describe('Cypress static methods + props', () => {
     const { spec } = Cypress
 
     expect(spec).to.be.an('object')
-    expect(spec.name).to.eq('config_passing_spec.coffee')
-    expect(spec.relative).to.eq('cypress/integration/config_passing_spec.coffee')
+    expect(spec.name).to.eq('config_passing_spec.js')
+    expect(spec.relative).to.eq('cypress/integration/config_passing_spec.js')
 
-    expect(spec.absolute.indexOf('cypress/integration/config_passing_spec.coffee')).to.be.gt(0)
+    expect(spec.absolute.indexOf('cypress/integration/config_passing_spec.js')).to.be.gt(0)
   })
 
-  context('.env', () => // https://github.com/cypress-io/cypress/issues/4952
-  {
+  context('.env', () => {
+    // https://github.com/cypress-io/cypress/issues/4952
     it(
       'doesn\'t die on <script> tags',
       () => {
